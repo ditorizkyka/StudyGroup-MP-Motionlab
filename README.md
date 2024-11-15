@@ -1,7 +1,3 @@
-Berikut adalah contoh README dalam Bahasa Indonesia yang merangkum fungsi Git dan GitHub serta beberapa catatan penting.
-
----
-
 # Pengantar Git dan GitHub
 
 Git adalah sistem version control yang kuat yang membantu pengembang melacak dan mengelola perubahan pada kode. Sementara itu, GitHub adalah platform berbasis Git untuk menyimpan repositori, berkolaborasi pada kode, dan mengelola proyek open-source.
