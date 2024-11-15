@@ -43,6 +43,40 @@ Berikut adalah beberapa perintah dasar Git beserta fungsinya:
 - Branch remote bisa dihapus dengan perintah `git push origin --delete nama-branch`.
 - Gunakan konvensi penamaan branch tanpa spasi dan karakter khusus. Gunakan tanda hubung (`-`) atau garis bawah (`_`) untuk memisahkan kata.
 
+Berikut adalah rangkuman untuk README Anda mengenai protokol **SSH** dan **HTTPS** dalam proses _clone_ repositori di GitHub.
+
 ---
 
-README ini memberikan pemahaman dasar tentang Git dan GitHub untuk membantu pemula memulai dengan version control dan pengkodean kolaboratif.
+# SSH dan HTTPS pada GitHub
+
+Dalam GitHub, ada dua protokol utama yang dapat digunakan untuk _clone_ repositori, yaitu **SSH** dan **HTTPS**. Keduanya memiliki fungsi yang sama untuk mengakses dan berinteraksi dengan repositori remote, namun dengan metode otentikasi dan kelebihan yang berbeda.
+
+## 1. HTTPS (HyperText Transfer Protocol Secure)
+
+- **Deskripsi**: Protokol yang umum digunakan untuk mengakses web dengan aman.
+- **URL Format**: `https://github.com/username/repository.git`
+- **Keamanan**: Menggunakan username dan token akses pribadi (personal access token) untuk otentikasi.
+- **Kelebihan**: Mudah digunakan, cocok untuk akses sesekali dan pada jaringan dengan pembatasan tinggi.
+- **Kekurangan**: Memerlukan otentikasi berulang kali saat melakukan _push_ atau _pull_, kecuali jika menggunakan credential helper.
+
+## 2. SSH (Secure Shell)
+
+- **Deskripsi**: Protokol yang lebih aman menggunakan pasangan kunci SSH untuk otentikasi.
+- **URL Format**: `git@github.com:username/repository.git`
+- **Keamanan**: Menggunakan kunci SSH yang terhubung ke akun GitHub. Setelah diatur, tidak perlu otentikasi berulang.
+- **Kelebihan**: Ideal untuk kolaborasi jangka panjang, lebih cepat dan aman setelah konfigurasi awal.
+- **Kekurangan**: Memerlukan konfigurasi awal untuk menambahkan kunci SSH ke akun GitHub, dan mungkin dibatasi pada beberapa jaringan.
+
+## Perbandingan Singkat
+
+| Protokol | Otentikasi                     | URL Contoh                             | Penggunaan Utama                      |
+| -------- | ------------------------------ | -------------------------------------- | ------------------------------------- |
+| HTTPS    | Username dan Token Akses       | `https://github.com/username/repo.git` | Cepat untuk akses langsung            |
+| SSH      | Kunci SSH (dihubungkan sekali) | `git@github.com:username/repo.git`     | Kolaborasi jangka panjang, lebih aman |
+
+## Kesimpulan
+
+- **Pilih HTTPS** jika Anda hanya sesekali mengakses repositori atau bekerja di jaringan dengan pembatasan tinggi.
+- **Pilih SSH** jika Anda bekerja secara kolaboratif dalam jangka panjang, karena lebih aman dan nyaman setelah konfigurasi awal.
+
+---
