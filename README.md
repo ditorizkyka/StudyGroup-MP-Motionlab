@@ -17,12 +17,4 @@ Branch pada repository ini dibuat berdasarkan format berikut:
 
 Dengan format ini, setiap tugas dapat diorganisir dengan jelas sesuai minggu dan materi yang diajarkan.
 
-## Kontribusi
-
-1. Pastikan mengikuti pedoman branch dan penamaan file.
-2. Lakukan pull request ke branch utama (main) setelah menyelesaikan tugas.
-3. Jika ada pertanyaan atau kendala, diskusikan melalui grup diskusi study group.
-
 ---
-
-Selamat belajar dan berkarya! 🚀
