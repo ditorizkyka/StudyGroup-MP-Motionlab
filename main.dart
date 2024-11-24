@@ -1,4 +1,4 @@
-import 'User.dart';
+import 'user.dart';
 import 'dart:io';
 
 void main() {
@@ -6,7 +6,7 @@ void main() {
   print('         SELAMAT DATANG DI BANNKU          ');
   print('===========================================');
   print("Melakukan pembuatan akun!");
-  printLine();
+  print('-------------------------------------------');
 
   // Memasukkan nama pengguna
   stdout.write("Masukan Nama : ");
@@ -23,7 +23,7 @@ void main() {
   double saldo = saldoAwal.isEmpty ? 0 : double.tryParse(saldoAwal) ?? 0;
 
   // Menampilkan informasi akun berhasil dibuat
-  printLine();
+  print('-------------------------------------------');
   print("AKUN BERHASIL DIBUAT!");
   print("Memasuki menu utama...");
   print("");
@@ -93,11 +93,12 @@ void main() {
 }
 
 printHeader(String title) {
-  print('===========================================');
-  print('                $title');
-  print('===========================================');
+  print('===============================');
+  print('          $title');
+  print('===============================');
 }
 
+// Fungsi untuk mencetak garis pemisah
 printLine() {
-  print('-------------------------------------------');
+  print('-------------------------------');
 }
