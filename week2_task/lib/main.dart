@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:week2_task/pages/detail_product/detail_product_page.dart';
 import 'package:week2_task/pages/home/home_page.dart';
 
 void main() {
@@ -11,10 +12,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // Rute default (halaman pertama)
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/product': (context) => const DetailProductPage(),
+      },
       title: 'Task Week 2 - Flutter Motion Lab',
-      home: HomePage(),
     );
   }
 }
