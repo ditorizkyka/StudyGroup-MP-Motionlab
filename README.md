@@ -1,80 +1,96 @@
-# 📘 Flutter Development - Minggu Ke-2: Slicing UI dengan Flutter
+# Rangkuman Minggu ke-3 Pertemuan Motion Lab
 
-## 🚀 Pendahuluan
-
-Dokumen ini merupakan panduan lengkap untuk memahami konsep dasar Flutter dan mempraktikkan **UI slicing** dari desain ke dalam aplikasi yang fungsional.
+## 📌 **Materi: Package, Widget Lifecycle, dan State Management**
 
 ---
 
-## 📋 Materi Pembelajaran
+### **1. Package**
 
-### 1. Pengantar Flutter
+#### 📖 Pengertian
 
-- Flutter adalah **SDK lintas platform** berbasis bahasa Dart.
-- Memungkinkan pembuatan aplikasi untuk Android dan iOS dengan satu codebase.
+- **Package**: Kumpulan kode Dart yang telah dibuat sebelumnya untuk membantu pengembangan aplikasi Flutter.
+- **Jenis Package**:
+  - **Library**: Hanya berisi kode Dart.
+  - **Plugin**: Berisi kode Dart dan kode native (Kotlin/Swift/Java).
 
-### 2. Pengenalan Widget
+#### 💡 Contoh Package
 
-- **Widget adalah semua elemen yang tampil di Flutter**, seperti teks, tombol, gambar, hingga layout.
-- Widget diatur dalam **Widget Tree**, yaitu struktur hierarki yang terdiri dari parent dan child widget.
+- **Google Fonts**: Mengakses font dari Google Fonts.
+- **Lottie**: Menambahkan animasi berbasis JSON ke aplikasi.
 
-### 3. Widget Utama
+#### 🔗 Sumber Package
 
-- **MaterialApp**: Widget root untuk aplikasi berbasis Material Design.
-- **Scaffold**: Struktur dasar halaman dalam Flutter.
-- **SafeArea**:
-  - Widget ini memastikan konten aplikasi tidak keluar dari dimensi layar atau terpotong oleh notch, status bar, atau elemen lainnya.
-
-### 4. Layout Widget
-
-- Gunakan **Column** untuk menyusun widget secara vertikal.
-- Gunakan **Row** untuk menyusun widget secara horizontal.
-- **Alignment** digunakan untuk mengatur posisi elemen secara presisi.
-
-### 5. Gambar dalam Flutter
-
-- **Image Network**:
-  - Menampilkan gambar yang diambil langsung dari URL.
-  - Contoh:
-    ```dart
-    Image.network('https://example.com/image.png');
-    ```
-- **Image Assets**:
-  - Menampilkan gambar yang disimpan secara lokal di proyek.
-  - Pastikan menambahkan referensi gambar di file `pubspec.yaml`.
-  - Contoh konfigurasi di `pubspec.yaml`:
-    ```yaml
-    flutter:
-      assets:
-        - assets/images/
-    ```
-  - Contoh penggunaan:
-    ```dart
-    Image.asset('assets/images/example.png');
-    ```
-
-### 6. Tips Coding Flutter
-
-- **Prettier**:
-  - Gunakan ekstensi **Prettier** untuk merapikan format kode secara otomatis di editor Anda.
-  - Pastikan Prettier diaktifkan untuk meningkatkan keterbacaan dan menjaga konsistensi kode.
-
-### 7. Analogi Widget
-
-#### a. Gambar Sepeda
-
-- **Sepeda** menggambarkan bahwa UI Flutter adalah hasil kombinasi berbagai komponen kecil yang saling terhubung.
-  - Sepeda sebagai **keseluruhan UI aplikasi**.
-  - Komponen seperti stang, roda, pedal adalah widget yang membangun aplikasi.
-
-#### b. Pohon Widget (Widget Tree)
-
-- **Pohon Widget** menunjukkan struktur hierarki widget di Flutter.
-  - **Root widget** (seperti `MaterialApp`) adalah akar pohon.
-  - Cabang dan daun adalah **widget parent dan child** yang saling terhubung.
+- [Pub.dev](https://pub.dev)
+- [Flutter Gems](https://fluttergems.dev)
 
 ---
 
-## 🌟 Penutup
+### **2. Widget Lifecycle**
 
-Mari bangun aplikasi yang elegan, satu widget dalam satu waktu. 🎨💻
+#### 🌀 Siklus Hidup Widget
+
+1. **Stateless Widget**:
+
+   - State tidak berubah.
+   - Siklus:
+     - **Constructor**
+     - **build()**
+
+2. **Stateful Widget**:
+   - Widget yang state-nya dapat berubah.
+   - Siklus:
+     1. **Constructor**
+     2. **createState()**
+     3. **initState()**
+     4. **build()**
+     5. **setState()**: Untuk memberitahu framework bahwa ada perubahan state.
+
+---
+
+### **3. Callback Function**
+
+#### 🔄 Pengertian
+
+- **Callback Function**: Fungsi yang diberikan ke fungsi lain sebagai parameter dan dipanggil kembali setelah tugas selesai atau suatu peristiwa terjadi.
+
+---
+
+### **4. State dan State Management**
+
+#### 🔎 Pengertian State
+
+- State adalah informasi dalam aplikasi yang dapat berubah, seperti:
+  - Poin dalam game.
+  - Input pengguna di aplikasi catatan.
+
+#### 🛠️ Jenis Widget Berdasarkan State
+
+1. **Stateless Widget**:
+   - Tidak berubah setelah dibuat.
+2. **Stateful Widget**:
+   - Dapat berubah menggunakan metode seperti `setState`.
+
+#### 🌳 Widget Tree
+
+- **Widget Tree**:
+  - Struktur hierarki yang menyusun UI aplikasi Flutter.
+- **Inherited Widget**:
+  - Digunakan untuk berbagi data antar widget tanpa mengoper data secara eksplisit.
+
+#### ⚙️ State Management
+
+- Proses pengelolaan state untuk memastikan UI mencerminkan kondisi aplikasi secara efisien.
+
+---
+
+## 📝 **Tugas Minggu ke-3**
+
+1. **Membuat UI Slicing**:
+   - Halaman Login.
+   - Halaman Register.
+2. **Menambahkan Navigasi Antar Halaman**.
+3. **Mengimplementasikan Reusable Widget**.
+
+---
+
+> ⚠️ **Catatan**: Sumber berasal dari PPT MotionLab minggu 3 dan 3.5!.

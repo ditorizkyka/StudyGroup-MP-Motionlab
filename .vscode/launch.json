@@ -5,18 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "week2_task",
+            "name": "motion_shop",
+            "cwd": "motion_shop",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "week2_task (profile mode)",
+            "name": "motion_shop (profile mode)",
+            "cwd": "motion_shop",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "week2_task (release mode)",
+            "name": "motion_shop (release mode)",
+            "cwd": "motion_shop",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
