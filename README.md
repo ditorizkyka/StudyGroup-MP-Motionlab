@@ -1,96 +1,113 @@
-# Rangkuman Minggu ke-3 Pertemuan Motion Lab
+# State Management + MVC
 
-## 📌 **Materi: Package, Widget Lifecycle, dan State Management**
+## State Management
 
----
+**State Management** adalah proses mengelola _state_ (data atau informasi) dalam aplikasi. State merepresentasikan kondisi aplikasi pada suatu waktu.
 
-### **1. Package**
+### Penggunaan State
 
-#### 📖 Pengertian
-
-- **Package**: Kumpulan kode Dart yang telah dibuat sebelumnya untuk membantu pengembangan aplikasi Flutter.
-- **Jenis Package**:
-  - **Library**: Hanya berisi kode Dart.
-  - **Plugin**: Berisi kode Dart dan kode native (Kotlin/Swift/Java).
-
-#### 💡 Contoh Package
-
-- **Google Fonts**: Mengakses font dari Google Fonts.
-- **Lottie**: Menambahkan animasi berbasis JSON ke aplikasi.
-
-#### 🔗 Sumber Package
-
-- [Pub.dev](https://pub.dev)
-- [Flutter Gems](https://fluttergems.dev)
+- Untuk input pengguna.
+- Mengelola data dari server.
+- Menampilkan elemen UI yang dinamis.
 
 ---
 
-### **2. Widget Lifecycle**
+## MVC (Model-View-Controller)
 
-#### 🌀 Siklus Hidup Widget
+MVC adalah pola desain yang memisahkan komponen aplikasi menjadi tiga bagian utama:
 
-1. **Stateless Widget**:
+### Komponen Utama
 
-   - State tidak berubah.
-   - Siklus:
-     - **Constructor**
-     - **build()**
-
-2. **Stateful Widget**:
-   - Widget yang state-nya dapat berubah.
-   - Siklus:
-     1. **Constructor**
-     2. **createState()**
-     3. **initState()**
-     4. **build()**
-     5. **setState()**: Untuk memberitahu framework bahwa ada perubahan state.
+- **Model**: Mengelola data.
+- **View**: Bertanggung jawab untuk tampilan UI.
+- **Controller**: Penghubung antara Model dan View, menangani logika aplikasi.
 
 ---
 
-### **3. Callback Function**
+## GetX (State Management)
 
-#### 🔄 Pengertian
+GetX menawarkan metode sederhana untuk mengelola state dengan dua pendekatan utama:
 
-- **Callback Function**: Fungsi yang diberikan ke fungsi lain sebagai parameter dan dipanggil kembali setelah tugas selesai atau suatu peristiwa terjadi.
+### 1. GetX Reactive
+
+#### Definisi
+
+Menggunakan `Rx` (Reactive Data Type) untuk langsung mengamati perubahan dalam variabel.
+
+#### Format dan Contoh
+
+- `RxInt count = 0.obs;`
+- `RxString message = ''.obs;`
+- **List Reactive**: `RxList<String> items = <String>[].obs;`
+
+#### Penggunaan dalam Widget
+
+UI akan diperbarui ketika `state` berubah dengan bantuan widget `Obx()`:
+
+```dart
+Obx(() => Text("Nilai: ${controller.count}"));
+```
+
+### 2. GetX Simple
+
+#### Definisi
+
+Menggunakan tipe data biasa tanpa `RxType`.
+
+#### Controller
+
+Membutuhkan `GetxController` dan menggunakan metode `update()` untuk memperbarui UI.
+
+#### Contoh
+
+```dart
+class CounterController extends GetxController {
+  int count = 0;
+
+  void increment() {
+    count++;
+    update(); // Memperbarui UI
+  }
+}
+```
 
 ---
 
-### **4. State dan State Management**
+## Snippet Visual Studio Code (VSCode)
 
-#### 🔎 Pengertian State
+### Apa Itu Snippet?
 
-- State adalah informasi dalam aplikasi yang dapat berubah, seperti:
-  - Poin dalam game.
-  - Input pengguna di aplikasi catatan.
+_Snippet_ adalah cuplikan kode yang dapat digunakan untuk mempercepat penulisan kode dengan shortcut khusus.
 
-#### 🛠️ Jenis Widget Berdasarkan State
+### Manfaat
 
-1. **Stateless Widget**:
-   - Tidak berubah setelah dibuat.
-2. **Stateful Widget**:
-   - Dapat berubah menggunakan metode seperti `setState`.
+- Mempercepat penulisan kode rutin seperti struktur GetX atau widget pada Flutter.
+- Mengurangi kesalahan sintaks.
 
-#### 🌳 Widget Tree
+### Cara Membuat Snippet Custom
 
-- **Widget Tree**:
-  - Struktur hierarki yang menyusun UI aplikasi Flutter.
-- **Inherited Widget**:
-  - Digunakan untuk berbagi data antar widget tanpa mengoper data secara eksplisit.
+1. Buka Command Palette (`Ctrl + Shift + P`).
+2. Ketik `Configure User Snippets` → Pilih **Dart** atau proyek spesifik.
+3. Tambahkan _template_ kode seperti berikut:
 
-#### ⚙️ State Management
+```json
+"GetX Controller Template": {
+  "prefix": "getxctrl",
+  "body": [
+    "import 'package:get/get.dart';",
+    "",
+    "class ${1:ControllerName} extends GetxController {",
+    "  var ${2:count} = 0.obs;",
+    "",
+    "  void ${3:increment}() {",
+    "    $2++;",
+    "  }",
+    "}"
+  ],
+  "description": "Template untuk GetX Controller"
+}
+```
 
-- Proses pengelolaan state untuk memastikan UI mencerminkan kondisi aplikasi secara efisien.
+#### Hasil
 
----
-
-## 📝 **Tugas Minggu ke-3**
-
-1. **Membuat UI Slicing**:
-   - Halaman Login.
-   - Halaman Register.
-2. **Menambahkan Navigasi Antar Halaman**.
-3. **Mengimplementasikan Reusable Widget**.
-
----
-
-> ⚠️ **Catatan**: Sumber berasal dari PPT MotionLab minggu 3 dan 3.5!.
+Ketik shortcut `getxctrl` untuk menghasilkan controller baru secara otomatis.

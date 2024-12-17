@@ -15,10 +15,15 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.only(left: 23),
           child: Icon(Icons.menu),
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 23),
-            child: Icon(Icons.shopping_bag_outlined),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/cart');
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 23),
+              child: Icon(Icons.shopping_bag_outlined),
+            ),
           )
         ],
         title: Image.asset(
