@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "motion_shop",
+            "cwd": "motion_shop",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "motion_shop (profile mode)",
+            "cwd": "motion_shop",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "motion_shop (release mode)",
+            "cwd": "motion_shop",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
