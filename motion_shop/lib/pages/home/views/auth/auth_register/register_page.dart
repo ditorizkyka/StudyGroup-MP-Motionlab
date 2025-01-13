@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_shop/widget/button_app.dart';
 import 'package:motion_shop/widget/field_form.dart';
@@ -48,7 +49,7 @@ class RegisterPage extends StatelessWidget {
                 ),
                 ButtonApp(
                   onTap: () {
-                    Navigator.pushNamed(context, "/");
+                    Get.offNamed('/home');
                   },
                   text: "Register",
                 ),
@@ -65,7 +66,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/");
+                        Get.offNamed('/login');
                       },
                       child: Text(
                         "Login",

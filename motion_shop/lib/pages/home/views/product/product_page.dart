@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:motion_shop/app/data/dummy_product.dart';
+import 'package:motion_shop/pages/model/product_model.dart';
 import 'package:motion_shop/widget/button_app.dart';
 
-class DetailProductPage extends StatefulWidget {
-  const DetailProductPage({super.key});
-
-  @override
-  State<DetailProductPage> createState() => _DetailProductPageState();
-}
-
-class _DetailProductPageState extends State<DetailProductPage> {
-  Color _iconColor = Colors.grey;
-
-  void _changeColor() {
-    setState(() {
-      _iconColor = _iconColor == Colors.grey ? Colors.red : Colors.grey;
-    });
-  }
+class ProductPage extends StatelessWidget {
+  const ProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ProductModel product = dummyProduct[Get.arguments];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -29,10 +20,10 @@ class _DetailProductPageState extends State<DetailProductPage> {
           Padding(
             padding: const EdgeInsets.only(right: 23),
             child: GestureDetector(
-              onTap: _changeColor,
+              onTap: () {},
               child: Icon(
                 Icons.favorite,
-                color: _iconColor,
+                color: Colors.grey,
                 size: 23,
               ),
             ),
@@ -71,14 +62,14 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     Image.asset(
                       width: double.infinity,
                       height: 401,
-                      "assets/images/miBand.png",
+                      product.image ?? "",
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
-                      "Mi band 8 Pro",
+                      product.name ?? "Not Found",
                       style: GoogleFonts.roboto(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -87,9 +78,10 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "\$54.00",
-                      style: TextStyle(fontSize: 20, color: Color(0xFF00623B)),
+                    Text(
+                      "\$${product.price}",
+                      style: const TextStyle(
+                          fontSize: 20, color: Color(0xFF00623B)),
                     ),
                     const SizedBox(
                       height: 35,

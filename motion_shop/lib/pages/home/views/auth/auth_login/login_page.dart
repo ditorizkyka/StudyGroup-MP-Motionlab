@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -46,7 +47,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 ButtonApp(
                   onTap: () {
-                    Navigator.pushNamed(context, "/home");
+                    Get.offNamed("/register");
                   },
                   text: "Login",
                 ),
