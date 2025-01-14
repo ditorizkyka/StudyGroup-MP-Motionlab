@@ -1,4 +1,4 @@
-# README: Migrasi Project Menggunakan GetX dan Get CLI
+# TUGAS MINGGU 5 : Migrasi Project Menggunakan GetX dan Get CLI
 
 ## Pendahuluan
 
