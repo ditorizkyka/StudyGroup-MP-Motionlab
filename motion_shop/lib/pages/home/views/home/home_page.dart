@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_shop/app/data/dummy_product.dart';
+import 'package:motion_shop/pages/home/controllers/cart_controller.dart';
+import 'package:motion_shop/pages/model/product_model.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = Get.put(CartController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -20,7 +23,7 @@ class HomePage extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/cart');
+              Get.toNamed("/cart");
             },
             child: const Padding(
               padding: EdgeInsets.only(right: 23),
@@ -207,11 +210,7 @@ class HomePage extends StatelessWidget {
                               itemCount: dummyProduct.length,
                               itemBuilder: (context, index) {
                                 return CardProduct(
-                                  imageProduct: dummyProduct[index].image ?? "",
-                                  nameProduct: dummyProduct[index].name ??
-                                      "Product Not Found",
-                                  priceProduct:
-                                      dummyProduct[index].price.toString(),
+                                  item: dummyProduct[index],
                                   indexProduct: index,
                                 );
                               },
@@ -265,14 +264,11 @@ class HomePage extends StatelessWidget {
 }
 
 class CardProduct extends StatelessWidget {
-  final String imageProduct;
-  final String nameProduct;
-  final String priceProduct;
+  final ProductModel item;
   final int indexProduct;
+
   const CardProduct({
-    required this.imageProduct,
-    required this.nameProduct,
-    required this.priceProduct,
+    required this.item,
     required this.indexProduct,
     super.key,
   });
@@ -283,67 +279,80 @@ class CardProduct extends StatelessWidget {
       onTap: () {
         Get.toNamed('/product', arguments: indexProduct);
       },
-      child: Container(
-          // width: 177,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(9.72),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: const Offset(1, 1), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 190,
-                child: Image.asset(
-                  imageProduct,
-                  width: double.infinity,
-                  height: 187,
-                  fit: BoxFit.cover,
+      child: Obx(
+        () => Container(
+            // width: 177,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(9.72),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: const Offset(1, 1), // changes position of shadow
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      nameProduct,
-                      style: GoogleFonts.raleway(
-                        color: Colors.black,
-                        fontSize: 13.88,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "\$${priceProduct}",
-                          style: GoogleFonts.poppins(
-                            color: const Color(0xff00623B),
-                            fontSize: 17.35,
-                            fontWeight: FontWeight.w400,
-                          ),
+              ],
+            ),
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 190,
+                  child: Image.asset(
+                    item.image ?? "",
+                    width: double.infinity,
+                    height: 187,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.name ?? "Product Not Found",
+                        style: GoogleFonts.raleway(
+                          color: Colors.black,
+                          fontSize: 13.88,
+                          fontWeight: FontWeight.w500,
                         ),
-                        const Icon(Icons.favorite, color: Colors.red),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ],
-          )),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "\$${item.price.toString()}",
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xff00623B),
+                              fontSize: 17.35,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              item.isFavorite.value = !item.isFavorite.value;
+                            },
+                            child: Icon(
+                              Icons.favorite,
+                              color: item.isFavorite.value
+                                  ? Colors.red
+                                  : Colors.grey,
+                              size: 23,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ),
     );
   }
 }

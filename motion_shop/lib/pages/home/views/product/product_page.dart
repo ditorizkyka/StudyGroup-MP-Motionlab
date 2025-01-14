@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_shop/app/data/dummy_product.dart';
+import 'package:motion_shop/pages/home/controllers/cart_controller.dart';
 import 'package:motion_shop/pages/model/product_model.dart';
 import 'package:motion_shop/widget/button_app.dart';
 
@@ -11,20 +12,25 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductModel product = dummyProduct[Get.arguments];
+    final cartController = Get.find<CartController>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: Colors.white,
         centerTitle: true,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 23),
-            child: GestureDetector(
-              onTap: () {},
-              child: Icon(
-                Icons.favorite,
-                color: Colors.grey,
-                size: 23,
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.only(right: 23),
+              child: GestureDetector(
+                onTap: () {
+                  product.isFavorite.value = !product.isFavorite.value;
+                },
+                child: Icon(
+                  Icons.favorite,
+                  color: product.isFavorite.value ? Colors.red : Colors.grey,
+                  size: 23,
+                ),
               ),
             ),
           )
@@ -100,8 +106,20 @@ class ProductPage extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-            child: const ButtonApp(
-              text: "add to bag",
+            child: GestureDetector(
+              onTap: () {
+                if (cartController.checkProduct(product)) {
+                  product.qty++;
+                } else {
+                  cartController.addProduct(product);
+                  product.qty++;
+                }
+
+                Get.offNamed("/cart");
+              },
+              child: ButtonApp(
+                text: "add to bag",
+              ),
             ),
           ),
         ],
