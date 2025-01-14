@@ -1,113 +1,93 @@
-# State Management + MVC
+````markdown
+# README: Migrasi Project Menggunakan GetX dan Get CLI
 
-## State Management
+## Pendahuluan
 
-**State Management** adalah proses mengelola _state_ (data atau informasi) dalam aplikasi. State merepresentasikan kondisi aplikasi pada suatu waktu.
+```markdown
+Saya menggunakan **GetX**, sebuah package Flutter yang mempermudah pengelolaan state, navigasi, dan dependensi dengan performa tinggi. Dengan **Get CLI**, saya bisa dengan mudah membuat struktur folder dan file yang sesuai dengan arsitektur **MVC (Model-View-Controller)**. Panduan ini merangkum cara saya mengubah keseluruhan proyek Flutter menggunakan **GetX** dan **Get CLI**.
+```
+````
 
-### Penggunaan State
+## Prasyarat
 
-- Untuk input pengguna.
-- Mengelola data dari server.
-- Menampilkan elemen UI yang dinamis.
-
----
-
-## MVC (Model-View-Controller)
-
-MVC adalah pola desain yang memisahkan komponen aplikasi menjadi tiga bagian utama:
-
-### Komponen Utama
-
-- **Model**: Mengelola data.
-- **View**: Bertanggung jawab untuk tampilan UI.
-- **Controller**: Penghubung antara Model dan View, menangani logika aplikasi.
-
----
-
-## GetX (State Management)
-
-GetX menawarkan metode sederhana untuk mengelola state dengan dua pendekatan utama:
-
-### 1. GetX Reactive
-
-#### Definisi
-
-Menggunakan `Rx` (Reactive Data Type) untuk langsung mengamati perubahan dalam variabel.
-
-#### Format dan Contoh
-
-- `RxInt count = 0.obs;`
-- `RxString message = ''.obs;`
-- **List Reactive**: `RxList<String> items = <String>[].obs;`
-
-#### Penggunaan dalam Widget
-
-UI akan diperbarui ketika `state` berubah dengan bantuan widget `Obx()`:
-
-```dart
-Obx(() => Text("Nilai: ${controller.count}"));
+```bash
+# Sebelum memulai, saya memastikan sudah menginstal:
+# 1. Flutter SDK
+# 2. Package GetX: saya tambahkan `get` ke dalam `pubspec.yaml`.
+# 3. Get CLI: saya instal dengan perintah:
+flutter pub global activate get_cli
 ```
 
-### 2. GetX Simple
+## Langkah-langkah Migrasi dengan Get CLI
 
-#### Definisi
+### 1. Inisialisasi Get CLI
 
-Menggunakan tipe data biasa tanpa `RxType`.
+```bash
+# Saya memeriksa instalasi Get CLI dengan mengetik:
+get --version
+# Jika berhasil, versi Get CLI akan muncul.
+```
 
-#### Controller
+### 2. Membuat Proyek Baru
 
-Membutuhkan `GetxController` dan menggunakan metode `update()` untuk memperbarui UI.
+```bash
+# Jika saya memulai proyek dari awal, saya menggunakan perintah:
+get create project
+# Untuk proyek yang sudah ada, saya lanjutkan ke langkah berikutnya.
+```
 
-#### Contoh
+### 3. Membuat Modul dengan Get CLI
+
+```bash
+# Saya membuat modul (berbasis MVC) dengan perintah:
+get generate page:halaman_nama
+
+# Contoh, ketika saya membuat halaman `home`:
+get generate page:home
+
+# Struktur folder MVC yang terbentuk:
+# - bindings: tempat saya mengelola dependencies dengan `Get.lazyPut()`.
+# - controllers: tempat saya menulis logika bisnis dan state.
+# - views: tempat saya membuat UI untuk halaman.
+```
+
+### 4. Registrasi Halaman
 
 ```dart
-class CounterController extends GetxController {
-  int count = 0;
-
-  void increment() {
-    count++;
-    update(); // Memperbarui UI
-  }
+// Saya menambahkan rute halaman di `app_pages.dart` dengan format berikut:
+class AppPages {
+  static final routes = [
+    GetPage(
+      name: '/home',
+      page: () => HomeView(),
+      binding: HomeBinding(),
+    ),
+  ];
 }
 ```
 
----
+### 5. Menjalankan Proyek
 
-## Snippet Visual Studio Code (VSCode)
-
-### Apa Itu Snippet?
-
-_Snippet_ adalah cuplikan kode yang dapat digunakan untuk mempercepat penulisan kode dengan shortcut khusus.
-
-### Manfaat
-
-- Mempercepat penulisan kode rutin seperti struktur GetX atau widget pada Flutter.
-- Mengurangi kesalahan sintaks.
-
-### Cara Membuat Snippet Custom
-
-1. Buka Command Palette (`Ctrl + Shift + P`).
-2. Ketik `Configure User Snippets` → Pilih **Dart** atau proyek spesifik.
-3. Tambahkan _template_ kode seperti berikut:
-
-```json
-"GetX Controller Template": {
-  "prefix": "getxctrl",
-  "body": [
-    "import 'package:get/get.dart';",
-    "",
-    "class ${1:ControllerName} extends GetxController {",
-    "  var ${2:count} = 0.obs;",
-    "",
-    "  void ${3:increment}() {",
-    "    $2++;",
-    "  }",
-    "}"
-  ],
-  "description": "Template untuk GetX Controller"
-}
+```bash
+# Setelah selesai, saya menjalankan aplikasi dengan perintah:
+flutter run
 ```
 
-#### Hasil
+## Kesimpulan
 
-Ketik shortcut `getxctrl` untuk menghasilkan controller baru secara otomatis.
+```markdown
+Dengan mengikuti langkah-langkah ini, saya berhasil memanfaatkan **GetX** dan **Get CLI** untuk membuat proyek Flutter saya lebih terstruktur dan efisien. **GetX** memudahkan pengelolaan state, dependency injection, dan navigasi, sehingga saya dapat meningkatkan produktivitas.
+```
+
+## Referensi
+
+```markdown
+- [Dokumentasi Resmi GetX](https://pub.dev/packages/get)
+- [Dokumentasi Get CLI](https://github.com/jonataslaw/get_cli)
+```
+
+**Happy Coding!** 🚀
+
+```
+
+```
