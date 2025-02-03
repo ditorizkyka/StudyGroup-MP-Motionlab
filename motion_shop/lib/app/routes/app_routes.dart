@@ -11,14 +11,20 @@ abstract class Routes {
   static const PRODUCT = _Paths.PRODUCT;
   static const CART = _Paths.CART;
   static const INVOICE = _Paths.INVOICE;
+  static const FAVORITE = _Paths.FAVORITE;
+  static const PROFILE = _Paths.PROFILE;
+  static const NAV = _Paths.NAV;
 }
 
 abstract class _Paths {
   _Paths._();
   static const LOGIN = '/login';
   static const REGISTER = '/register';
+  static const NAV = '/nav';
   static const HOME = '/home';
   static const PRODUCT = '/product';
   static const CART = '/cart';
   static const INVOICE = '/invoice';
+  static const FAVORITE = '/favorite';
+  static const PROFILE = '/profile';
 }

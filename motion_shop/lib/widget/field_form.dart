@@ -4,7 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 class FieldForm extends StatelessWidget {
   final String hintText;
   final IconData icon;
-  const FieldForm({
+  final TextEditingController controller;
+  final bool isObsecure;
+
+  FieldForm({
+    required this.isObsecure,
+    required this.controller,
     required this.hintText,
     required this.icon,
     super.key,
@@ -15,6 +20,8 @@ class FieldForm extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 20),
       child: TextField(
+        controller: controller,
+        obscureText: isObsecure,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 15),
           prefixIcon: Container(

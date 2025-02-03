@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
-import 'package:motion_shop/pages/home/views/auth/auth_login/login_page.dart';
-import 'package:motion_shop/pages/home/views/auth/auth_register/register_page.dart';
-import 'package:motion_shop/pages/home/views/cart/cart_page.dart';
-import 'package:motion_shop/pages/home/views/home/home_page.dart';
-import 'package:motion_shop/pages/home/views/invoice_success/invoice_success_page.dart';
-import 'package:motion_shop/pages/home/views/product/product_page.dart';
-
-import '../../pages/home/bindings/home_binding.dart';
+import 'package:motion_shop/app/pages/auth/auth_login/login_page.dart';
+import 'package:motion_shop/app/pages/auth/auth_register/register_page.dart';
+import 'package:motion_shop/app/pages/cart/cart_page.dart';
+import 'package:motion_shop/app/pages/dashboard/home/bindings/home_bindings.dart';
+import 'package:motion_shop/app/pages/dashboard/favorite/favorite_page.dart';
+import 'package:motion_shop/app/pages/dashboard/home/home_page.dart';
+import 'package:motion_shop/app/pages/dashboard/navigation_bar.dart';
+import 'package:motion_shop/app/pages/dashboard/profile/profile_page.dart';
+import 'package:motion_shop/app/pages/invoice_success/invoice_success_page.dart';
+import 'package:motion_shop/app/pages/product/product_page.dart';
 part 'app_routes.dart';
 
 class AppPages {
@@ -43,6 +45,21 @@ class AppPages {
     GetPage(
       name: _Paths.INVOICE,
       page: () => const InvoiceSuccessPage(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.NAV,
+      page: () => const NavigationBar(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAVORITE,
+      page: () => const FavoritePage(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfilePage(),
       binding: HomeBinding(),
     ),
   ];
