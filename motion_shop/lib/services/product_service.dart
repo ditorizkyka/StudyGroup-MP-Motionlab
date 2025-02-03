@@ -1,5 +1,6 @@
+import 'package:motion_shop/app/model/productElement/product_element.dart';
 import 'package:motion_shop/app/shared/constanta.dart';
-import 'package:motion_shop/pages/model/product_model_api.dart';
+import 'package:motion_shop/app/model/product/product_model.dart';
 
 class ProductService {
   Future<Product?> getAllProduct() async {
@@ -45,9 +46,16 @@ class ProductService {
       List<ProductElement> productsCategory = [];
       final response = await dio.get(url);
       if (response.statusCode == 200) {
+        // print('data : ${response.data['products'].length}');
         for (var i = 0; i < response.data['products'].length; i++) {
-          productsCategory
-              .add(ProductElement.fromJson(response.data['products'][i]));
+          try {
+            print("Processing item ke-$i");
+            print('reponse : ${response.data['products'][i]['title']}');
+            productsCategory
+                .add(ProductElement.fromJson(response.data['products'][i]));
+          } catch (e) {
+            print("Error pada item ke-$i: $e");
+          }
         }
 
         return productsCategory;
@@ -59,7 +67,7 @@ class ProductService {
     }
   }
 
-  Future<ProductElement?> getProductById(String id) async {
+  Future<ProductElement?> getProductById(int id) async {
     try {
       final response = await dio.get('$url/products/$id');
       if (response.statusCode == 200) {

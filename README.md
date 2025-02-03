@@ -1,170 +1,140 @@
-# RESTful API and CRUD Operations with Dio
+📌 Local Storage di Flutter: Hive & SharedPreferences
+Dalam pengembangan aplikasi Flutter, terkadang kita perlu menyimpan data secara lokal agar bisa diakses kembali tanpa harus mengambilnya dari server. Dua pilihan populer untuk penyimpanan lokal di Flutter adalah:
 
-## Table of Contents
+Hive: Database NoSQL berbasis key-value yang cepat dan ringan.
+SharedPreferences: Penyimpanan berbasis key-value untuk data kecil seperti preferensi pengguna.
+🚀 1. Menggunakan Hive untuk Menyimpan Status Login
+Hive cocok untuk menyimpan data yang sering digunakan seperti status login (isLoggedIn). Berikut adalah langkah-langkah menggunakannya:
 
-- [Overview](#overview)
-- [What is RESTful API?](#what-is-restful-api)
-- [Using Dio for CRUD Operations](#using-dio-for-crud-operations)
-  - [Setup Dio](#setup-dio)
-  - [CRUD Operations](#crud-operations)
-- [Examples](#examples)
+📌 Instalasi Hive
+Tambahkan dependency berikut di pubspec.yaml:
 
----
-
-## Overview
-
-This guide provides an introduction to RESTful APIs, explores how to use the Dio package in Flutter for CRUD (Create, Read, Update, Delete) operations, and includes code examples to demonstrate each step.
-
----
-
-## What is RESTful API?
-
-RESTful API (Representational State Transfer) is an architectural style for designing networked applications. It relies on standard HTTP methods such as GET, POST, PUT, and DELETE for communication and interacts with resources identified by unique URIs.
-
-### Key Features:
-
-1. **Stateless**: Each request from the client contains all the information needed.
-2. **Resource-Based**: Data is organized into resources accessed via URLs.
-3. **JSON/XML**: Typically uses JSON for lightweight data exchange.
-4. **HTTP Methods:**
-   - GET: Retrieve data
-   - POST: Add new data
-   - PUT: Update existing data
-   - DELETE: Remove data
-
----
-
-## Using Dio for CRUD Operations
-
-[Dio](https://pub.dev/packages/dio) is a powerful and easy-to-use HTTP client for Flutter that simplifies API interactions.
-
-### Features of Dio:
-
-- HTTP requests (GET, POST, PUT, DELETE, etc.)
-- Request Interceptors
-- Response Interceptors
-- Global Configuration
-- Cancelable Requests
-- File Upload/Download
-
-### Setup Dio
-
-To use Dio, add it to your `pubspec.yaml` file:
-
-```yaml
+yaml
+Copy
+Edit
 dependencies:
-  dio: ^5.0.0
-```
+hive: ^2.2.3
+hive_flutter: ^1.1.0
 
-Run the following command to get the package:
+dev_dependencies:
+hive_generator: ^2.0.0
+build_runner: ^2.4.6
+📌 Inisialisasi Hive
+Tambahkan inisialisasi di main.dart:
 
-```sh
-flutter pub get
-```
+dart
+Copy
+Edit
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-Import Dio into your Dart file:
-
-```dart
-import 'package:dio/dio.dart';
-```
-
----
-
-## CRUD Operations
-
-The following sections demonstrate how to perform CRUD operations using Dio.
-
-### 1. Create (POST)
-
-```dart
-Future<void> createData(String url, Map<String, dynamic> data) async {
-  try {
-    Dio dio = Dio();
-    Response response = await dio.post(url, data: data);
-    print('Created: ${response.data}');
-  } catch (e) {
-    print('Error creating data: $e');
-  }
-}
-```
-
-### 2. Read (GET)
-
-```dart
-Future<void> fetchData(String url) async {
-  try {
-    Dio dio = Dio();
-    Response response = await dio.get(url);
-    print('Fetched: ${response.data}');
-  } catch (e) {
-    print('Error fetching data: $e');
-  }
-}
-```
-
-### 3. Update (PUT)
-
-```dart
-Future<void> updateData(String url, Map<String, dynamic> data) async {
-  try {
-    Dio dio = Dio();
-    Response response = await dio.put(url, data: data);
-    print('Updated: ${response.data}');
-  } catch (e) {
-    print('Error updating data: $e');
-  }
-}
-```
-
-### 4. Delete (DELETE)
-
-```dart
-Future<void> deleteData(String url) async {
-  try {
-    Dio dio = Dio();
-    Response response = await dio.delete(url);
-    print('Deleted: ${response.statusCode}');
-  } catch (e) {
-    print('Error deleting data: $e');
-  }
-}
-```
-
----
-
-## Examples
-
-Below is a practical example using a sample REST API:
-
-```dart
 void main() async {
-  const baseUrl = 'https://jsonplaceholder.typicode.com/posts';
-
-  // Create
-  await createData(baseUrl, {
-    'title': 'New Post',
-    'body': 'This is a new post.',
-    'userId': 1
-  });
-
-  // Read
-  await fetchData(baseUrl);
-
-  // Update
-  await updateData('$baseUrl/1', {
-    'id': 1,
-    'title': 'Updated Post',
-    'body': 'This post has been updated.',
-    'userId': 1
-  });
-
-  // Delete
-  await deleteData('$baseUrl/1');
+WidgetsFlutterBinding.ensureInitialized();
+await Hive.initFlutter();
+await Hive.openBox('authBox');
+runApp(MyApp());
 }
-```
+📌 Simpan dan Ambil Status Login
+dart
+Copy
+Edit
+class AuthService {
+static final \_box = Hive.box('authBox');
 
----
+// Simpan status login
+static Future<void> setLoginStatus(bool status) async {
+await \_box.put('isLoggedIn', status);
+}
 
-## Conclusion
+// Ambil status login
+static bool getLoginStatus() {
+return \_box.get('isLoggedIn', defaultValue: false);
+}
+}
+📌 Cara Penggunaan
+dart
+Copy
+Edit
+void main() async {
+await AuthService.setLoginStatus(true);
+bool isLoggedIn = AuthService.getLoginStatus();
+print("User Logged In: $isLoggedIn");
+}
+✅ Keuntungan menggunakan Hive untuk login:
 
-Using the Dio package for CRUD operations with a RESTful API simplifies interaction with server-side resources. This guide provided step-by-step instructions to integrate Dio, perform CRUD operations, and leverage its features for efficient API communication. Happy coding!
+Cepat dan ringan.
+Bisa menyimpan berbagai jenis data tanpa serialisasi manual.
+Tidak memerlukan async setiap kali membaca data (langsung tersedia di memori).
+⭐ 2. Menggunakan SharedPreferences untuk Produk Favorit
+Jika kita ingin menyimpan daftar produk favorit, kita bisa menggunakan SharedPreferences karena lebih sederhana untuk menyimpan list dalam bentuk JSON.
+
+📌 Instalasi SharedPreferences
+Tambahkan dependency berikut di pubspec.yaml:
+
+yaml
+Copy
+Edit
+dependencies:
+shared_preferences: ^2.2.2
+📌 Simpan dan Ambil Produk Favorit
+dart
+Copy
+Edit
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ProductService {
+static const String \_favKey = "favorite_products";
+
+// Menambahkan produk ke favorit
+static Future<void> addFavoriteProduct(int productId) async {
+final prefs = await SharedPreferences.getInstance();
+List<int> favorites = await getFavoriteProducts();
+if (!favorites.contains(productId)) {
+favorites.add(productId);
+await prefs.setString(\_favKey, json.encode(favorites));
+}
+}
+
+// Menghapus produk dari favorit
+static Future<void> removeFavoriteProduct(int productId) async {
+final prefs = await SharedPreferences.getInstance();
+List<int> favorites = await getFavoriteProducts();
+favorites.remove(productId);
+await prefs.setString(\_favKey, json.encode(favorites));
+}
+
+// Mendapatkan daftar produk favorit
+static Future<List<int>> getFavoriteProducts() async {
+final prefs = await SharedPreferences.getInstance();
+String? jsonString = prefs.getString(\_favKey);
+if (jsonString != null) {
+return List<int>.from(json.decode(jsonString));
+}
+return [];
+}
+}
+📌 Cara Penggunaan
+dart
+Copy
+Edit
+void main() async {
+await ProductService.addFavoriteProduct(101);
+await ProductService.addFavoriteProduct(102);
+
+List<int> favorites = await ProductService.getFavoriteProducts();
+print("Favorite Products: $favorites"); // Output: [101, 102]
+}
+✅ Keuntungan menggunakan SharedPreferences untuk produk favorit:
+
+Cocok untuk menyimpan data kecil berbasis key-value.
+Mudah digunakan untuk menyimpan list sederhana dalam bentuk JSON.
+Bisa digunakan tanpa perlu tambahan adapter seperti Hive.
+📌 Kesimpulan
+Kriteria Hive 🐝 SharedPreferences 📦
+Tipe Data Objek kompleks, List, Map String, int, double, bool, JSON
+Kecepatan Sangat cepat Cepat
+Kompleksitas Butuh adapter untuk objek kompleks Sederhana
+Cocok Untuk Cache, database ringan, user session Pengaturan pengguna, daftar ID, preferensi
+Jika Anda ingin menyimpan data kompleks seperti status login atau daftar pengguna, Hive lebih direkomendasikan.
+Sedangkan untuk data sederhana seperti preferensi pengguna atau daftar produk favorit berbasis ID, SharedPreferences adalah pilihan yang lebih baik.
